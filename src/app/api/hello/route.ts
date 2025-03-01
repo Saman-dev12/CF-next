@@ -8,7 +8,7 @@ export async function GET() {
     {role:"system",content:"you are a helpful assistant"},
     {role:"user",content:"Hello, how are you?"}
 ]
-  const res = await getRequestContext().env.AI.run("@hf/thebloke/deepseek-coder-6.7b-base-awq",{messages})
+  const res = await getRequestContext().env.AI.run("@cf/meta/llama-3-8b-instruct",{messages})
 
 
 
