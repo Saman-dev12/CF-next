@@ -32,6 +32,8 @@ interface ModelProps {
   setLoadingState: (state:boolean) => void;
 }
 
+export const runtime = "edge";
+
 export const Model: React.FC<ModelProps> = ({ generatedImage,setLoadingState }) => {
 
     const [options, setOptions] = useState<string[]>([]);
@@ -69,9 +71,12 @@ export const Model: React.FC<ModelProps> = ({ generatedImage,setLoadingState }) 
         },
         body: JSON.stringify(data),
       });
-      const result:any = await response.json();
+      const blob:any = await response.blob();
+      // console.log(blob)
+      const imageUrl = URL.createObjectURL(blob);
+      console.log(imageUrl)
 
-      await generatedImage(result.image);
+      await generatedImage(imageUrl);
       
       toast.success("Image generated successfully");
       } catch (error) {

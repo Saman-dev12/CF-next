@@ -4,6 +4,7 @@ import {Model} from "@/components/Model";
 import { useState } from "react";
 import GenImage from "./generatedImage";
 
+export const runtime = "edge";
 
 
 export default function Main() {
