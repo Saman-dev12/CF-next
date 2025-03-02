@@ -1,14 +1,12 @@
-import Head from "@/components/Head";
-import Model from "@/components/Model";
+import Main from '@/components/Main';
+import React from 'react'
 
-export default function Home() {
+function Home() {
   return (
-    <>
-    <Head/>
-    <div className="flex items-center justify-center gap-4 h-screen">
-      <div className="flex w-1/2"><Model/></div>
-      <div className="flex w-1/2">World</div>
+    <div>
+      <Main />
     </div>
-    </>
-  );
+  )
 }
+
+export default Home;

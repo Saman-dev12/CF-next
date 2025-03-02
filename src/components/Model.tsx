@@ -27,8 +27,13 @@ const FormSchema = z.object({
     prompt: z.string().min(1),
     model: z.string().min(1),
 });
+interface ModelProps {
+  generatedImage: (data: string) => void;
+  setLoadingState: (state:boolean) => void;
+}
 
-export default function Model() {
+export const Model: React.FC<ModelProps> = ({ generatedImage,setLoadingState }) => {
+
     const [options, setOptions] = useState<string[]>([]);
   
     useEffect(() => {
@@ -53,9 +58,29 @@ export default function Model() {
       }
     });
   
-    function onSubmit(data: z.infer<typeof FormSchema>) {
-      console.log(data);
-      toast.success("Form submitted successfully!");
+    async function onSubmit(data: z.infer<typeof FormSchema>) {
+      setLoadingState(true);
+      try {
+        
+      const response: Response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result:any = await response.json();
+
+      await generatedImage(result.image);
+      
+      toast.success("Image generated successfully");
+      } catch (error) {
+        toast.error("Failed to generate image");
+        console.error(error);
+      }finally {
+        setLoadingState(false);
+      }
+      
     }
   
     return (
