@@ -36,21 +36,21 @@ export const runtime = "edge";
 
 export const Model: React.FC<ModelProps> = ({ generatedImage,setLoadingState }) => {
 
-    const [options, setOptions] = useState<string[]>([]);
+    // const [options, setOptions] = useState<string[]>([]);
   
-    useEffect(() => {
-      const getModels = async () => {
-        try {
-          const response = await fetch("/api/models");
-          const data:any = await response.json();
-          setOptions(data.map((model: any) => model.name));
-        } catch (error) {
-          toast.error("Failed to fetch models");
-          console.error(error);
-        }
-      };
-      getModels();
-    }, []);
+    // useEffect(() => {
+    //   const getModels = async () => {
+    //     try {
+    //       const response = await fetch("/api/models");
+    //       const data:any = await response.json();
+    //       setOptions(data.map((model: any) => model.name));
+    //     } catch (error) {
+    //       toast.error("Failed to fetch models");
+    //       console.error(error);
+    //     }
+    //   };
+    //   getModels();
+    // }, []);
   
     const form = useForm<z.infer<typeof FormSchema>>({
       resolver: zodResolver(FormSchema),
@@ -107,9 +107,12 @@ export const Model: React.FC<ModelProps> = ({ generatedImage,setLoadingState }) 
                         <SelectValue placeholder="Select model" />
                       </SelectTrigger>
                       <SelectContent>
-                        {options.map((option, index) => (
+                        {/* {options.map((option, index) => (
                           <SelectItem key={index} value={option}>{option}</SelectItem>
-                        ))}
+                        ))} */}
+                        
+                          <SelectItem  value={"@cf/black-forest-labs/flux-1-schnell"}>{"@cf/black-forest-labs/flux-1-schnell"}</SelectItem>
+                    
                       </SelectContent>
                     </Select>
                   </FormItem>

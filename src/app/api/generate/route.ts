@@ -18,15 +18,12 @@ export async function POST(request: NextRequest) {
             prompt: prompt,
         });
         
-        console.log(response)
-        // console.log(response.image)
-    
+        const binaryString = atob(response.image);
+        const img = Uint8Array.from(binaryString, (m) => m!.codePointAt(0)!);
 
-
-
-        return new Response(response, {
+        return new Response(img, {
             headers:{
-                "content-type":"image/png"
+                "content-type":"image/jpeg"
             }
         })
         // return NextResponse.json(url)
